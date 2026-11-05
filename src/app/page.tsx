@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTheme } from "@/components/theme-provider";
 
 type Workout = {
   id: string;
@@ -47,6 +48,7 @@ export default function Home() {
   const [today, setToday] = useState("");
   const [todayDay, setTodayDay] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -143,6 +145,27 @@ export default function Home() {
               ? `${completedCount} of ${todayWorkouts.length} allenamenti di oggi (${DAYS_FULL[todayDay]})`
               : "Loading..."}
           </p>
+          {mounted && (
+            <div className="mt-3 inline-flex rounded-lg border border-zinc-200 bg-white p-1 dark:border-zinc-800 dark:bg-zinc-900">
+              {(["light", "dark", "system"] as const).map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setTheme(t)}
+                  className={`rounded-md px-3 py-1 text-xs font-medium transition-colors ${
+                    theme === t
+                      ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-black"
+                      : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+                  }`}
+                >
+                  {t === "light"
+                    ? "Chiaro"
+                    : t === "dark"
+                    ? "Scuro"
+                    : "Sistema"}
+                </button>
+              ))}
+            </div>
+          )}
         </header>
 
         <form onSubmit={addWorkout} className="mb-6 flex gap-2">
