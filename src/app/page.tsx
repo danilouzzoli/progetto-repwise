@@ -146,24 +146,74 @@ export default function Home() {
               : "Loading..."}
           </p>
           {mounted && (
-            <div className="mt-3 inline-flex rounded-lg border border-zinc-200 bg-white p-1 dark:border-zinc-800 dark:bg-zinc-900">
-              {(["light", "dark", "system"] as const).map((t) => (
-                <button
-                  key={t}
-                  onClick={() => setTheme(t)}
-                  className={`rounded-md px-3 py-1 text-xs font-medium transition-colors ${
-                    theme === t
-                      ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-black"
-                      : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
-                  }`}
-                >
-                  {t === "light"
-                    ? "Chiaro"
-                    : t === "dark"
-                    ? "Scuro"
-                    : "Sistema"}
-                </button>
-              ))}
+            <div className="fixed top-4 right-4 z-50">
+              <div className="flex items-center gap-1 rounded-full border border-zinc-200/70 bg-white/80 p-1 shadow-lg backdrop-blur dark:border-zinc-700/70 dark:bg-zinc-900/80">
+                {(["light", "dark", "system"] as const).map((t) => (
+                  <button
+                    key={t}
+                    onClick={() => setTheme(t)}
+                    aria-label={
+                      t === "light"
+                        ? "Tema chiaro"
+                        : t === "dark"
+                        ? "Tema scuro"
+                        : "Tema di sistema"
+                    }
+                    className={`flex h-9 w-9 items-center justify-center rounded-full transition-all ${
+                      theme === t
+                        ? "bg-zinc-900 text-white shadow dark:bg-zinc-100 dark:text-black"
+                        : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+                    }`}
+                  >
+                    {t === "light" ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0l-1.414-1.414M7.05 7.05L5.636 5.636M12 8a4 4 0 100 8 4 4 0 000-8z"
+                        />
+                      </svg>
+                    ) : t === "dark" ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                ))}
+              </div>
             </div>
           )}
         </header>
